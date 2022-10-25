@@ -1,0 +1,18 @@
+.navContainer {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  background-color: gray;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  border: none;
+  border-radius: 10px;
+  padding: 5px 5px;
+  outline-style: none;
+}

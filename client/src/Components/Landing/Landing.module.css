@@ -1,0 +1,30 @@
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  background-image: url("../../images/landing-image.jpg");
+  background-size: 1200px;
+  background-position: center;
+}
+
+.mainText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.beginBtn {
+  border: none;
+  border-radius: 15px;
+  padding: 10px 10px;
+  background-color: rgb(173, 173, 173);
+}

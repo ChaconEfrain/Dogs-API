@@ -30,6 +30,7 @@ module.exports = {
     dogsFromDb = await Dog.findAll({
       include: {
         model: Temperament,
+        as: "temperament",
         attributes: ["name"],
         through: { attributes: [] },
       },
@@ -98,6 +99,7 @@ module.exports = {
       },
       include: {
         model: Temperament,
+        as: "temperament",
         attributes: ["name"],
         through: { attributes: [] },
       },
