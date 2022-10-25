@@ -1,6 +1,6 @@
-import s from "./Nav.module.css";
+import s from "./Header.module.css";
 
-const Nav = () => {
+const Header = () => {
   return (
     <nav className={s.navContainer}>
       <form className={s.inputContainer}>
@@ -14,4 +14,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default Header;

@@ -8,7 +8,7 @@ const Landing = () => {
         <h1>Welcome to the Doggie-App</h1>
         <p>
           By clicking the button below you'll be able to look for any dog race
-          along with it's main characteristics, have fun!
+          along with it's main characteristics and much more, have fun!
         </p>
       </div>
       <NavLink to="/home">

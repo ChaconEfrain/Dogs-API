@@ -2,7 +2,7 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import Home from "./Components/Home/Home";
 import Landing from "./Components/Landing/Landing";
-import Nav from "./Components/Nav/Nav";
+import Header from "./Components/Header/Header";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
           <Landing />
         </Route>
         <Route exact path="/home">
-          <Nav />
+          <Header />
           <Home />
         </Route>
       </Switch>
