@@ -27,7 +27,13 @@ module.exports = {
   },
 
   async getDogsFromDb() {
-    dogsFromDb = await Dog.findAll();
+    dogsFromDb = await Dog.findAll({
+      include: {
+        model: Temperament,
+        attributes: ["name"],
+        through: { attributes: [] },
+      },
+    });
     return dogsFromDb;
   },
 
