@@ -37,12 +37,18 @@ module.exports = {
   },
 
   async getTemperaments() {
-    const dogs = await axios.get(URL);
-    allTemperaments = dogs.data.map((dog) => {
-      name: dog.temperament;
+    allTemperaments = dogsFromAPI.map((dog) => {
+      if (dog.temperament) return dog.temperament.split(", ");
     });
-    await Temperament.bulkCreate(allTemperaments);
-    return allTemperaments;
+    let temperaments = allTemperaments.flat().sort();
+    let uniqueTemperaments = new Set(temperaments);
+    let uniqueTemperamentsArray = [...uniqueTemperaments];
+    const tempsToCreate = uniqueTemperamentsArray.map((temp) => ({
+      name: temp,
+    }));
+    await Temperament.bulkCreate(tempsToCreate);
+    uniqueTemperamentsArray.pop();
+    return uniqueTemperamentsArray;
   },
 
   getDogsByQuery(name) {
@@ -58,7 +64,7 @@ module.exports = {
     return dog;
   },
 
-  async createDog(name, height, weight, life_span, temperament) {
+  async createDog(name, height, weight, life_span) {
     if (!name || !height || !weight || !life_span)
       throw new Error("Missing necessary information");
     const newDog = await Dog.create({
@@ -66,15 +72,17 @@ module.exports = {
       height,
       weight,
       life_span,
-      temperament,
     });
     return newDog;
   },
 
-  async createTemperament(temperament) {
-    if (!temperament) throw new Error("Temperament missing");
-    const newTemperament = await Temperament.create({ name: temperament });
-    return newTemperament;
+  async associateTemperaments(dog, temperament) {
+    let temps = temperament.split(", ");
+    for (const temp of temps) {
+      await dog.addTemperament(
+        await Temperament.findOne({ where: { name: temp } })
+      );
+    }
   },
 
   async joinDogAndTemperament(name) {

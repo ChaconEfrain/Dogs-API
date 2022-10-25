@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { Temperament } = require("../db.js");
 const Model = require("../Utils/dogsModel.js");
 const router = Router();
 
@@ -24,11 +25,11 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
+  //temperament debe tener la siguiente forma: Active, Playful, Stubborn
   try {
     const { name, height, weight, life_span, temperament } = req.body;
     const dog = await Model.createDog(name, height, weight, life_span);
-    const temp = await Model.createTemperament(temperament);
-    await dog.addTemperament(temp);
+    await Model.associateTemperaments(dog, temperament);
     return res.json(await Model.joinDogAndTemperament(name));
   } catch (error) {
     res.status(500).send(error.message);
