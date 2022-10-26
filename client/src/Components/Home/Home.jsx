@@ -6,12 +6,11 @@ import Pagination from "../Pagination/Pagination";
 import genericDog from "../../images/generic-dog.jpg";
 import s from "./Home.module.css";
 
-const Home = () => {
+const Home = ({ dogsSearched }) => {
   const dispatch = useDispatch();
   const dogs = useSelector((state) => state.allDogs);
 
   //Pagination variables
-  // const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const dogsPerPage = 8;
 
@@ -27,7 +26,11 @@ const Home = () => {
   //Get current dogs for pagination
   const indexOfLastDog = currentPage * dogsPerPage; //(8, 16)
   const indexOfFirstDog = indexOfLastDog - dogsPerPage;
-  const currentDogs = dogs.slice(indexOfFirstDog, indexOfLastDog);
+  let currentDogs;
+
+  if (dogsSearched.length)
+    currentDogs = dogsSearched.slice(indexOfFirstDog, indexOfLastDog);
+  else currentDogs = dogs.slice(indexOfFirstDog, indexOfLastDog);
 
   //Change pages
   const handlePageChanging = (e) => {
