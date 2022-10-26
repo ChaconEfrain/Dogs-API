@@ -6,9 +6,11 @@ import Pagination from "../Pagination/Pagination";
 import genericDog from "../../images/generic-dog.jpg";
 import s from "./Home.module.css";
 
-const Home = ({ dogsSearched }) => {
+//TODO: Make another route for the query dogs
+const Home = () => {
   const dispatch = useDispatch();
   const dogs = useSelector((state) => state.allDogs);
+  const dogsSearched = useSelector((state) => state.dogsSearched);
 
   //Pagination variables
   const [currentPage, setCurrentPage] = useState(1);

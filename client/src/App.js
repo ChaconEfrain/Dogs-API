@@ -6,8 +6,6 @@ import Header from "./Components/Header/Header";
 import { useSelector } from "react-redux";
 
 function App() {
-  const dogsSearched = useSelector((state) => state.dogsSearched);
-
   return (
     <div className="App">
       <Switch>
@@ -16,7 +14,7 @@ function App() {
         </Route>
         <Route exact path="/home">
           <Header />
-          <Home dogsSearched={dogsSearched} />
+          <Home />
         </Route>
       </Switch>
     </div>

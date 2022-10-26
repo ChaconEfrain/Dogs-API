@@ -11,6 +11,8 @@ const Header = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(getDogsByQuery(input));
+    setInput("");
+    document.querySelector("input").blur();
   };
 
   return (

@@ -17,7 +17,7 @@ module.exports = {
         id: dog.id,
         image: dog.image.url,
         name: dog.name,
-        temperament: dog.temperament,
+        temperament: dog.temperament || "N/A",
         weight: `${dog.weight.metric} Kg`,
         height: `${dog.height.metric} cm`,
         life_span: dog.life_span,
@@ -76,8 +76,8 @@ module.exports = {
       throw new Error("Missing necessary information");
     const newDog = await Dog.create({
       name,
-      height,
-      weight,
+      height: `${height} cm`,
+      weight: `${weight} Kg`,
       life_span,
     });
     return newDog;
