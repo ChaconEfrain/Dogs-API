@@ -1,9 +1,8 @@
 import { Route, Switch } from "react-router-dom";
-import "./App.css";
 import Home from "./Components/Home/Home";
 import Landing from "./Components/Landing/Landing";
 import Header from "./Components/Header/Header";
-import { useSelector } from "react-redux";
+import "./App.css";
 
 function App() {
   return (

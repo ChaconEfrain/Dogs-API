@@ -1,7 +1,7 @@
 import s from "./Dog.module.css";
 
 const Dog = ({ id, image, name, temperament, weight, height, life_span }) => {
-  let stringTemperaments;
+  let stringTemperaments = "";
 
   if (Array.isArray(temperament)) {
     stringTemperaments = temperament.map((temp) => temp.name).join(", ");
@@ -14,7 +14,7 @@ const Dog = ({ id, image, name, temperament, weight, height, life_span }) => {
       <div className={s.dogInfo}>
         <p>
           <em>- Temperament:</em>{" "}
-          {Array.isArray(temperament) ? stringTemperaments : temperament}
+          {stringTemperaments ? stringTemperaments : temperament}
         </p>
         <p>
           <em>- Weight:</em> {weight}

@@ -11,6 +11,9 @@ const Home = () => {
   const dispatch = useDispatch();
   const dogs = useSelector((state) => state.allDogs);
   const dogsSearched = useSelector((state) => state.dogsSearched);
+  const filteredDogs = useSelector((state) => state.filteredDogs);
+  const dogsFromApi = useSelector((state) => state.dogsFromApi);
+  const dogsFromDb = useSelector((state) => state.dogsFromDb);
 
   //Pagination variables
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,18 +24,30 @@ const Home = () => {
     dispatch(getAllDogs());
   }, []);
 
-  //Dividing dog arrays depending on where they come from
-  // const dogsFromApi = dogs.filter((dog) => typeof dog.id === "number");
-  // const dogsFromDb = dogs.filter((dog) => typeof dog.id === "string");
-
   //Get current dogs for pagination
   const indexOfLastDog = currentPage * dogsPerPage; //(8, 16)
   const indexOfFirstDog = indexOfLastDog - dogsPerPage;
-  let currentDogs;
+  let currentDogs, currentLength;
 
-  if (dogsSearched.length)
-    currentDogs = dogsSearched.slice(indexOfFirstDog, indexOfLastDog);
-  else currentDogs = dogs.slice(indexOfFirstDog, indexOfLastDog);
+  const slicedArray = (dogsArray) =>
+    dogsArray.slice(indexOfFirstDog, indexOfLastDog);
+
+  if (filteredDogs.length) {
+    currentDogs = slicedArray(filteredDogs);
+    currentLength = filteredDogs.length;
+  } else if (dogsSearched.length) {
+    currentDogs = slicedArray(dogsSearched);
+    currentLength = dogsSearched.length;
+  } else if (dogsFromApi.length) {
+    currentDogs = slicedArray(dogsFromApi);
+    currentLength = dogsFromApi.length;
+  } else if (dogsFromDb.length) {
+    currentDogs = slicedArray(dogsFromDb);
+    currentLength = dogsFromDb.length;
+  } else {
+    currentDogs = slicedArray(dogs);
+    currentLength = dogs.length;
+  }
 
   //Change pages
   const handlePageChanging = (e) => {
@@ -58,7 +73,7 @@ const Home = () => {
       </div>
       <Pagination
         dogsPerPage={dogsPerPage}
-        totalDogs={dogs.length}
+        totalDogs={currentLength}
         handlePageChanging={handlePageChanging}
       />
     </div>

@@ -13,8 +13,9 @@
   align-items: center;
   border: none;
   border-radius: 10px;
-  box-shadow: 2px 5px 5px rgb(40, 40, 40);
+  box-shadow: 2px 5px 5px rgb(0, 0, 0);
   text-align: center;
+  background-color: rgb(136, 136, 136);
 }
 
 .card span {
@@ -34,7 +35,7 @@
   bottom: 0;
   font-size: 14px;
   text-align: start;
-  background-color: rgba(0, 0, 0, 0.807);
+  background-color: rgba(0, 49, 49, 0.807);
   color: rgb(212, 212, 212);
   opacity: 0;
   transition: opacity 0.3s ease-in;

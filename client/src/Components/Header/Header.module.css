@@ -1,13 +1,15 @@
-.navContainer {
+.container {
   display: flex;
   justify-content: center;
-  height: 50px;
-  background-color: gray;
+  /* background-color: gray; */
 }
 
-.inputContainer {
+.formContainer {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  margin-top: 15px;
+  gap: 15px;
 }
 
 .searchInput {
@@ -15,4 +17,24 @@
   border-radius: 10px;
   padding: 5px 5px;
   outline-style: none;
+  background-color: rgb(255, 255, 255);
+  color: rgb(115, 115, 115);
+}
+
+.searchInput::placeholder {
+  color: rgb(115, 115, 115);
+}
+
+.optionsDiv {
+  display: flex;
+  gap: 20px;
+}
+
+.optionsDiv label {
+  font-size: 14px;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
 }
