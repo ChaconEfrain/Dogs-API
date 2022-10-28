@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getDogDetails } from "../../redux/action-creators";
+import genericDog from "../../images/generic-dog.jpg";
 import s from "./Details.module.css";
 
 const Details = () => {
@@ -15,9 +16,14 @@ const Details = () => {
     dispatch(getDogDetails(id));
   });
 
+  let stringTemp;
+  if (Array.isArray(temperament)) {
+    stringTemp = temperament.map((temp) => temp.name).join(", ");
+  }
+
   return (
     <article className={s.container}>
-      <img className={s.dogImage} src={image} alt={`${name}`} />
+      <img className={s.dogImage} src={image || genericDog} alt={`${name}`} />
       <div className={s.infoContainer}>
         <span>
           <em>- Race:</em> {name}
@@ -32,7 +38,7 @@ const Details = () => {
           <em>- Life span:</em> {life_span}
         </span>
         <p>
-          <em>- Temperament:</em> {temperament}
+          <em>- Temperament:</em> {stringTemp ? stringTemp : temperament}
         </p>
       </div>
     </article>

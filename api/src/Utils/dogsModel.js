@@ -71,14 +71,22 @@ module.exports = {
     return dog;
   },
 
-  async createDog(name, height, weight, life_span) {
-    if (!name || !height || !weight || !life_span)
+  async createDog(
+    race,
+    minHeight,
+    maxHeight,
+    minWeight,
+    maxWeight,
+    minYears,
+    maxYears
+  ) {
+    if (!race || !minHeight || !maxHeight || !minWeight || !maxWeight)
       throw new Error("Missing necessary information");
     const newDog = await Dog.create({
-      name,
-      height: `${height} cm`,
-      weight: `${weight} Kg`,
-      life_span,
+      name: race,
+      height: `${minHeight} - ${maxHeight} cm`,
+      weight: `${minWeight} - ${maxWeight} Kg`,
+      life_span: `${minYears} - ${maxYears} years`,
     });
     return newDog;
   },

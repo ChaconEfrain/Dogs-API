@@ -26,10 +26,27 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   //temperament debe tener la siguiente forma: Active, Playful, Stubborn
   try {
-    const { name, height, weight, life_span, temperament } = req.body;
-    const dog = await Model.createDog(name, height, weight, life_span);
+    const {
+      race,
+      minHeight,
+      maxHeight,
+      minWeight,
+      maxWeight,
+      minLifeSpan,
+      maxLifeSpan,
+      temperament,
+    } = req.body;
+    const dog = await Model.createDog(
+      race,
+      minHeight,
+      maxHeight,
+      minWeight,
+      maxWeight,
+      minLifeSpan,
+      maxLifeSpan
+    );
     await Model.associateTemperaments(dog, temperament);
-    return res.json(await Model.joinDogAndTemperament(name));
+    return res.json(await Model.joinDogAndTemperament(race));
   } catch (error) {
     res.status(500).send(error.message);
   }

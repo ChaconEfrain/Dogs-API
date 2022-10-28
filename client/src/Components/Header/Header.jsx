@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -7,6 +8,7 @@ import {
   getDogsByQuery,
   getDogsFromApi,
   getDogsFromDb,
+  getTemperaments,
   resetArrays,
   sortAlphabetically,
   sortByWeight,
@@ -17,6 +19,10 @@ const Header = () => {
   const dispatch = useDispatch();
   const temperaments = useSelector((state) => state.temperaments);
   const [input, setInput] = useState("");
+
+  useEffect(() => {
+    dispatch(getTemperaments());
+  }, []);
 
   const handleChange = (e) => setInput(e.target.value);
   const handleSubmit = (e) => {
