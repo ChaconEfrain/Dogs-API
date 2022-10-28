@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import {
   filterByTemperaments,
+  getAllDogs,
   getDogsByQuery,
   getDogsFromApi,
   getDogsFromDb,
-  getTemperaments,
   resetArrays,
   sortAlphabetically,
   sortByWeight,
@@ -16,10 +17,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const temperaments = useSelector((state) => state.temperaments);
   const [input, setInput] = useState("");
-
-  useEffect(() => {
-    dispatch(getTemperaments());
-  }, []);
 
   const handleChange = (e) => setInput(e.target.value);
   const handleSubmit = (e) => {
@@ -44,11 +41,16 @@ const Header = () => {
       : dispatch(getDogsFromDb());
   };
   const handleSorting = () => {
+    dispatch(resetArrays());
     let options = document.getElementById("sort");
     let orderSelected = options.value;
     let order = orderSelected.split(" ")[1];
     if (orderSelected.includes("Weight")) dispatch(sortByWeight(order));
     else dispatch(sortAlphabetically(order));
+  };
+  const handleRefresh = () => {
+    dispatch(resetArrays());
+    dispatch(getAllDogs());
   };
 
   return (
@@ -93,8 +95,14 @@ const Header = () => {
               <option value="Weight ascending">Weight ascending</option>
             </select>
           </div>
+          <button onClick={handleRefresh} className={s.refreshBtn}>
+            Refresh
+          </button>
         </div>
       </form>
+      <NavLink to="/create/dog">
+        <button className={s.createBtn}>Create your own dog! ↗</button>
+      </NavLink>
     </header>
   );
 };

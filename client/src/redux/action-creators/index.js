@@ -3,6 +3,7 @@ import {
   GET_DOGS_FROM_API,
   GET_DOGS_FROM_DB,
   GET_DOGS_BY_QUERY,
+  GET_DOG_DETAILS,
   GET_TEMPERAMENTS,
   FILTER_BY_TEMPERAMENTS,
   SORT_BY_WEIGHT,
@@ -36,6 +37,15 @@ export const getDogsByQuery = (race) => {
     fetch(`http://localhost:3001/dogs?name=${race}`)
       .then((res) => res.json())
       .then((data) => dispatch({ type: GET_DOGS_BY_QUERY, payload: data }))
+      .catch((err) => console.error(err));
+  };
+};
+
+export const getDogDetails = (id) => {
+  return function (dispatch) {
+    fetch(`http://localhost:3001/dogs/${id}`)
+      .then((res) => res.json())
+      .then((data) => dispatch({ type: GET_DOG_DETAILS, payload: data }))
       .catch((err) => console.error(err));
   };
 };

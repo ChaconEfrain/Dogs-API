@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
       },
       name: {
         type: DataTypes.STRING,
-        defaultValue: "Stubborn",
+        defaultValue: "Active, Athletic, Brave, Happy, Stubborn",
       },
     },
     { timestamps: false }

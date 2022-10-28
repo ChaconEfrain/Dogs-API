@@ -3,6 +3,7 @@ import {
   GET_DOGS_FROM_API,
   GET_DOGS_FROM_DB,
   GET_DOGS_BY_QUERY,
+  GET_DOG_DETAILS,
   GET_TEMPERAMENTS,
   FILTER_BY_TEMPERAMENTS,
   SORT_BY_WEIGHT,
@@ -14,6 +15,7 @@ const initialState = {
   allDogs: [],
   dogsFromApi: [],
   dogsFromDb: [],
+  dogDetails: {},
   filteredDogs: [],
   dogsSearched: [],
   temperaments: [],
@@ -45,6 +47,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         dogsSearched: action.payload,
+      };
+
+    case GET_DOG_DETAILS:
+      return {
+        ...state,
+        dogDetails: action.payload,
       };
 
     case GET_TEMPERAMENTS:

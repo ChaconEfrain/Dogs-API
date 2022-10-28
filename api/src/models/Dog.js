@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
       },
       life_span: {
         type: DataTypes.STRING,
-        defaultValue: "10 years",
+        defaultValue: "10 - 12 years",
       },
     },
     { timestamps: false }

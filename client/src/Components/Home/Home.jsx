@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllDogs } from "../../redux/action-creators";
+import { getAllDogs, getTemperaments } from "../../redux/action-creators";
 import Dog from "../Dog/Dog";
 import Pagination from "../Pagination/Pagination";
 import genericDog from "../../images/generic-dog.jpg";
@@ -22,6 +22,7 @@ const Home = () => {
   //Bring all the dogs
   useEffect(() => {
     dispatch(getAllDogs());
+    dispatch(getTemperaments());
   }, []);
 
   //Get current dogs for pagination

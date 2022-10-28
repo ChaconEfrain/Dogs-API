@@ -15,12 +15,13 @@
   border-radius: 10px;
   box-shadow: 2px 5px 5px rgb(0, 0, 0);
   text-align: center;
-  background-color: rgb(136, 136, 136);
+  background-color: rgb(109, 109, 109);
 }
 
 .card span {
   margin-bottom: 10px;
   transition: opacity 0.3s ease-in;
+  color: rgb(212, 212, 212);
 }
 
 .dogInfo {
