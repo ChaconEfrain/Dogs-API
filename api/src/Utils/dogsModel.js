@@ -86,7 +86,8 @@ module.exports = {
       name: race,
       height: `${minHeight} - ${maxHeight} cm`,
       weight: `${minWeight} - ${maxWeight} Kg`,
-      life_span: `${minYears} - ${maxYears} years`,
+      life_span:
+        minYears && maxYears ? `${minYears} - ${maxYears} years` : null,
     });
     return newDog;
   },
@@ -100,10 +101,10 @@ module.exports = {
     }
   },
 
-  async joinDogAndTemperament(name) {
+  async joinDogAndTemperament(race) {
     const newDog = await Dog.findAll({
       where: {
-        name,
+        name: race,
       },
       include: {
         model: Temperament,

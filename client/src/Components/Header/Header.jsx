@@ -20,9 +20,7 @@ const Header = () => {
   const temperaments = useSelector((state) => state.temperaments);
   const [input, setInput] = useState("");
 
-  useEffect(() => {
-    dispatch(getTemperaments());
-  }, []);
+  if (!temperaments.length) dispatch(getTemperaments());
 
   const handleChange = (e) => setInput(e.target.value);
   const handleSubmit = (e) => {

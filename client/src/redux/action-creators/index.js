@@ -85,14 +85,16 @@ export const sortAlphabetically = (order) => {
 };
 
 export const createDog = (data) => {
-  return fetch("http://localhost:3001/dogs", {
+  console.log("data", data);
+  const options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
-  })
+  };
+  fetch("http://localhost:3001/dogs", options)
     .then((res) => res.json())
-    .then((data) => console.log(data))
+    .then((response) => console.log(response))
     .catch((err) => console.error(err));
 };

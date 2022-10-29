@@ -15,10 +15,12 @@ const CreateDog = () => {
     temperament: "",
   });
 
+  //TODO: handle errors regarding temperament input
   const [errors, setErrors] = useState({
     race: "Race is required",
-    height: "Min height and max height required",
-    weight: "Min weight and max weight required",
+    height: "Min height and max height are required",
+    weight: "Min weight and max weight are required",
+    years: "Min years and max years are required",
   });
 
   const [temperament, setTemperament] = useState("");
@@ -35,35 +37,37 @@ const CreateDog = () => {
     //Race validation
     if (!input.race) errors.race = "Race is required";
     else if (!/^[A-Za-z\s]*$/.test(input.race))
-      errors.race = "Only letters allowed";
+      errors.race = "Only letters allowed in race";
     else if (races.includes(input.race)) errors.race = "Race already exists";
-
     //Height validation
     if (!input.minHeight || !input.maxHeight)
-      errors.height = "Min height and max height required";
+      errors.height = "Min height and max height are required";
     else if (
       !/^[0-9]*$/.test(input.minHeight) ||
       !/^[0-9]*$/.test(input.maxHeight)
     )
-      errors.height = "Only numbers allowed";
-    else if (input.minHeight > input.maxHeight)
+      errors.height = "Only positive numbers allowed in height";
+    else if (input.minHeight >= input.maxHeight)
       errors.height = "Min height has to be less than max height";
-
     //Weight validation
     if (!input.minWeight || !input.maxWeight)
-      errors.weight = "Min weight and max weight required";
+      errors.weight = "Min weight and max weight are required";
     else if (
       !/^[0-9]*$/.test(input.minWeight) ||
       !/^[0-9]*$/.test(input.maxWeight)
     )
-      errors.weight = "Only numbers allowed";
-    else if (input.minWeight > input.maxWeight)
+      errors.weight = "Only positive numbers allowed in weight";
+    else if (input.minWeight >= input.maxWeight)
       errors.weight = "Min weight has to be less than max weight";
-
     //Years validation
-    if (!/^[0-9]*$/.test(input.minYears) || !/^[0-9]*$/.test(input.maxYears))
-      errors.years = "Only numbers allowed";
-    else if (input.minYears > input.maxYears)
+    if (!input.minYears || !input.maxYears)
+      errors.years = "Min years and max years are required";
+    else if (
+      !/^[0-9]*$/.test(input.minYears) ||
+      !/^[0-9]*$/.test(input.maxYears)
+    )
+      errors.years = "Only positive numbers allowed in years";
+    else if (input.minYears >= input.maxYears)
       errors.years = "Min years has to be less than max years";
 
     return errors;
@@ -87,6 +91,7 @@ const CreateDog = () => {
       ...input,
       temperament: temperament,
     });
+    setErrors(validateForm({ ...input, temperament }));
     tempText.innerHTML = temperament;
   };
 
@@ -102,7 +107,6 @@ const CreateDog = () => {
   };
 
   const handleInput = (e) => {
-    const submitBtn = document.getElementById("submitBtn");
     setInput({
       ...input,
       temperament,
@@ -111,19 +115,18 @@ const CreateDog = () => {
     setErrors(
       validateForm({
         ...input,
+        temperament,
         [e.target.name]: e.target.value,
       })
     );
-    if (Object.keys(errors).length) submitBtn.disabled = true;
-    else submitBtn.disabled = false;
   };
 
-  //TODO: Fix "undefined" years output
   const handleSubmit = (e) => {
     e.preventDefault();
-    let tempText = document.getElementById("tempText");
-    let lastTemp =
-      tempText.innerHTML.split(", ")[tempText.innerHTML.split(", ").length - 1];
+    if (Object.keys(errors).length) return;
+    const tempText = document.getElementById("tempText");
+    const tempTextArray = tempText.innerHTML.split(", ");
+    const lastTemp = tempTextArray[tempTextArray.length - 1];
     console.log(input);
     createDog({ ...input, temperament: `${temperament}, ${lastTemp}` });
     setInput({
@@ -141,108 +144,119 @@ const CreateDog = () => {
   };
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)} className={s.formContainer}>
-      <div className={s.infoInput}>
-        <label htmlFor="">Race*</label>
-        <input
-          onChange={(e) => handleInput(e)}
-          name="race"
-          type="text"
-          value={input.race}
-          placeholder="Race of your dog"
-        />
-      </div>
-      <div className={s.numberInputs}>
+    <div className={s.mainContainer}>
+      <h1>Fill the info to create a new dog</h1>
+      <form onSubmit={(e) => handleSubmit(e)} className={s.formContainer}>
         <div className={s.infoInput}>
-          <label htmlFor="">Height*</label>
           <div>
-            <input
-              onChange={(e) => handleInput(e)}
-              name="minHeight"
-              className={s.numberInput}
-              type="number"
-              value={input.minHeight}
-              placeholder="Min"
-            />
-            <input
-              onChange={(e) => handleInput(e)}
-              name="maxHeight"
-              className={s.numberInput}
-              type="number"
-              value={input.maxHeight}
-              placeholder="Max"
-            />
+            <label htmlFor="">Race</label>
+          </div>
+          <input
+            onChange={(e) => handleInput(e)}
+            name="race"
+            type="text"
+            value={input.race}
+            placeholder="Race of your dog"
+          />
+        </div>
+        <div className={s.numberInputs}>
+          <div className={s.infoInput}>
+            <label htmlFor="">Height</label>
+            <div>
+              <input
+                onChange={(e) => handleInput(e)}
+                name="minHeight"
+                className={s.numberInput}
+                type="number"
+                value={input.minHeight}
+                placeholder="Min"
+              />
+              <input
+                onChange={(e) => handleInput(e)}
+                name="maxHeight"
+                className={s.numberInput}
+                type="number"
+                value={input.maxHeight}
+                placeholder="Max"
+              />
+            </div>
+          </div>
+          <div className={s.infoInput}>
+            <label htmlFor="">Weight</label>
+            <div>
+              <input
+                onChange={(e) => handleInput(e)}
+                name="minWeight"
+                className={s.numberInput}
+                type="number"
+                value={input.minWeight}
+                placeholder="Min"
+              />
+              <input
+                onChange={(e) => handleInput(e)}
+                name="maxWeight"
+                className={s.numberInput}
+                type="number"
+                value={input.maxWeight}
+                placeholder="Max"
+              />
+            </div>
+          </div>
+          <div className={s.infoInput}>
+            <label htmlFor="">Life span</label>
+            <div>
+              <input
+                onChange={(e) => handleInput(e)}
+                name="minYears"
+                className={s.numberInput}
+                type="number"
+                value={input.minYears}
+                placeholder="Min"
+              />
+              <input
+                onChange={(e) => handleInput(e)}
+                name="maxYears"
+                className={s.numberInput}
+                type="number"
+                value={input.maxYears}
+                placeholder="Max"
+              />
+            </div>
           </div>
         </div>
         <div className={s.infoInput}>
-          <label htmlFor="">Weight*</label>
-          <div>
-            <input
-              onChange={(e) => handleInput(e)}
-              name="minWeight"
-              className={s.numberInput}
-              type="number"
-              value={input.minWeight}
-              placeholder="Min"
-            />
-            <input
-              onChange={(e) => handleInput(e)}
-              name="maxWeight"
-              className={s.numberInput}
-              type="number"
-              value={input.maxWeight}
-              placeholder="Max"
-            />
+          <div className={s.tempDivLabel}>
+            <label htmlFor="">Select up to 5 temperaments</label>
+            <div onClick={(e) => deleteTemperament(e)}>← Delete</div>
+          </div>
+          <div className={s.tempDiv}>
+            <div className={s.tempContainer}>
+              <span id="tempText">{temperament}</span>
+            </div>
+            <select
+              onChange={displayTemperaments}
+              multiple
+              size="5"
+              id="tempOptions"
+            >
+              {temperaments &&
+                temperaments.map((temp) => (
+                  <option key={temp} value={temp}>
+                    {temp}
+                  </option>
+                ))}
+            </select>
           </div>
         </div>
-        <div className={s.infoInput}>
-          <label htmlFor="">Life span</label>
-          <div>
-            <input
-              onChange={(e) => handleInput(e)}
-              name="minYears"
-              className={s.numberInput}
-              type="number"
-              value={input.minYears}
-              placeholder="Min"
-            />
-            <input
-              onChange={(e) => handleInput(e)}
-              name="maxYears"
-              className={s.numberInput}
-              type="number"
-              value={input.maxYears}
-              placeholder="Max"
-            />
-          </div>
-        </div>
-      </div>
-      <div className={s.infoInput}>
-        <div className={s.tempDivLabel}>
-          <label htmlFor="">Select up to 5 temperaments</label>
-          <div onClick={(e) => deleteTemperament(e)}>← Delete</div>
-        </div>
-        <div className={s.tempDiv}>
-          <div className={s.tempContainer}>
-            <span id="tempText">{temperament}</span>
-          </div>
-          <select
-            onChange={displayTemperaments}
-            multiple
-            size="5"
-            id="tempOptions"
-          >
-            {temperaments &&
-              temperaments.map((temp) => (
-                <option key={temp} value={temp}>
-                  {temp}
-                </option>
-              ))}
-          </select>
-        </div>
-      </div>
-      <input disabled id="submitBtn" type="submit" value="Create dog" />
-    </form>
+        <input id="submitBtn" type="submit" value="Create dog" />
+      </form>
+      <ul>
+        {Object.keys(errors) &&
+          Object.keys(errors).map((error) => (
+            <li key={errors[error]}>{errors[error]}</li>
+          ))}
+      </ul>
+    </div>
   );
 };
 
