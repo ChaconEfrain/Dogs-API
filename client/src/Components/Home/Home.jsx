@@ -51,11 +51,23 @@ const Home = () => {
 
   //Change pages
   const handlePageChanging = (e) => {
-    setCurrentPage(e.target.innerHTML);
+    const totalPages = Math.ceil(currentLength / dogsPerPage);
+    if (e.target.innerHTML === "◁" && currentPage === 1) {
+      setCurrentPage(totalPages);
+    } else if (e.target.innerHTML === "▷" && currentPage === totalPages)
+      setCurrentPage(1);
+    else if (e.target.innerHTML === "◁") setCurrentPage((last) => --last);
+    else if (e.target.innerHTML === "▷") setCurrentPage((last) => ++last);
+    else setCurrentPage(Number(e.target.innerHTML));
   };
 
   return (
     <div className={s.mainContainer}>
+      <Pagination
+        dogsPerPage={dogsPerPage}
+        totalDogs={currentLength}
+        handlePageChanging={handlePageChanging}
+      />
       <div className={s.dogsContainer}>
         {currentDogs &&
           currentDogs.map((dog) => (
@@ -71,11 +83,6 @@ const Home = () => {
             />
           ))}
       </div>
-      <Pagination
-        dogsPerPage={dogsPerPage}
-        totalDogs={currentLength}
-        handlePageChanging={handlePageChanging}
-      />
     </div>
   );
 };

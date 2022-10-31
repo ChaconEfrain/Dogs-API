@@ -86,8 +86,7 @@ module.exports = {
       name: race,
       height: `${minHeight} - ${maxHeight} cm`,
       weight: `${minWeight} - ${maxWeight} Kg`,
-      life_span:
-        minYears && maxYears ? `${minYears} - ${maxYears} years` : null,
+      life_span: `${minYears} - ${maxYears} years`,
     });
     return newDog;
   },

@@ -1,6 +1,7 @@
 .container {
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
 .formContainer {
@@ -31,6 +32,9 @@
 
 .optionsDiv label {
   font-size: 14px;
+  font-weight: 450;
+  letter-spacing: 0.5px;
+  color: rgb(255, 255, 255);
 }
 
 .option {
@@ -41,10 +45,32 @@
 
 .refreshBtn {
   align-self: flex-end;
+  border: none;
+  border-radius: 7px;
+  background-color: rgb(109, 109, 109);
+  color: rgb(255, 255, 255);
+  padding: 4px 6px;
+  letter-spacing: 0.5px;
+}
+
+.refreshBtn:hover {
+  background-color: rgb(0, 160, 160);
+  cursor: pointer;
 }
 
 .createBtn {
   position: absolute;
   right: 100px;
   top: 50px;
+  border: none;
+  border-radius: 7px;
+  background-color: rgb(109, 109, 109);
+  color: rgb(255, 255, 255);
+  padding: 4px 6px;
+  letter-spacing: 0.5px;
+}
+
+.createBtn:hover {
+  background-color: rgb(0, 160, 160);
+  cursor: pointer;
 }

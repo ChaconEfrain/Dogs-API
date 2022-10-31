@@ -21,7 +21,7 @@
 .card span {
   margin-bottom: 10px;
   transition: opacity 0.3s ease-in;
-  color: rgb(212, 212, 212);
+  color: rgb(255, 255, 255);
 }
 
 .dogInfo {
@@ -35,9 +35,11 @@
   padding: 5px 10px;
   bottom: 0;
   font-size: 14px;
+  font-weight: 450;
+  letter-spacing: 0.5px;
   text-align: start;
-  background-color: rgba(0, 49, 49, 0.807);
-  color: rgb(212, 212, 212);
+  background-color: rgba(0, 160, 160, 0.701);
+  color: rgb(255, 255, 255);
   opacity: 0;
   transition: opacity 0.3s ease-in;
 }

@@ -152,6 +152,7 @@ const CreateDog = () => {
             <label htmlFor="">Race</label>
           </div>
           <input
+            className={errors.race && s.inputError}
             onChange={(e) => handleInput(e)}
             name="race"
             type="text"
@@ -166,7 +167,7 @@ const CreateDog = () => {
               <input
                 onChange={(e) => handleInput(e)}
                 name="minHeight"
-                className={s.numberInput}
+                className={`${s.numberInput} ${errors.height && s.inputError}`}
                 type="number"
                 value={input.minHeight}
                 placeholder="Min"
@@ -174,7 +175,7 @@ const CreateDog = () => {
               <input
                 onChange={(e) => handleInput(e)}
                 name="maxHeight"
-                className={s.numberInput}
+                className={`${s.numberInput} ${errors.height && s.inputError}`}
                 type="number"
                 value={input.maxHeight}
                 placeholder="Max"
@@ -187,7 +188,7 @@ const CreateDog = () => {
               <input
                 onChange={(e) => handleInput(e)}
                 name="minWeight"
-                className={s.numberInput}
+                className={`${s.numberInput} ${errors.weight && s.inputError}`}
                 type="number"
                 value={input.minWeight}
                 placeholder="Min"
@@ -195,7 +196,7 @@ const CreateDog = () => {
               <input
                 onChange={(e) => handleInput(e)}
                 name="maxWeight"
-                className={s.numberInput}
+                className={`${s.numberInput} ${errors.weight && s.inputError}`}
                 type="number"
                 value={input.maxWeight}
                 placeholder="Max"
@@ -208,7 +209,7 @@ const CreateDog = () => {
               <input
                 onChange={(e) => handleInput(e)}
                 name="minYears"
-                className={s.numberInput}
+                className={`${s.numberInput} ${errors.years && s.inputError}`}
                 type="number"
                 value={input.minYears}
                 placeholder="Min"
@@ -216,7 +217,7 @@ const CreateDog = () => {
               <input
                 onChange={(e) => handleInput(e)}
                 name="maxYears"
-                className={s.numberInput}
+                className={`${s.numberInput} ${errors.years && s.inputError}`}
                 type="number"
                 value={input.maxYears}
                 placeholder="Max"
@@ -227,7 +228,12 @@ const CreateDog = () => {
         <div className={s.infoInput}>
           <div className={s.tempDivLabel}>
             <label htmlFor="">Select up to 5 temperaments</label>
-            <div onClick={(e) => deleteTemperament(e)}>← Delete</div>
+            <div
+              className={s.deleteTempBtn}
+              onClick={(e) => deleteTemperament(e)}
+            >
+              Delete
+            </div>
           </div>
           <div className={s.tempDiv}>
             <div className={s.tempContainer}>
@@ -250,12 +256,13 @@ const CreateDog = () => {
         </div>
         <input id="submitBtn" type="submit" value="Create dog" />
       </form>
-      <ul>
-        {Object.keys(errors) &&
-          Object.keys(errors).map((error) => (
+      {Object.keys(errors) && (
+        <ul className={s.errorsList}>
+          {Object.keys(errors).map((error) => (
             <li key={errors[error]}>{errors[error]}</li>
           ))}
-      </ul>
+        </ul>
+      )}
     </div>
   );
 };
