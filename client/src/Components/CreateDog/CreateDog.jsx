@@ -15,7 +15,6 @@ const CreateDog = () => {
     temperament: "",
   });
 
-  //TODO: handle errors regarding temperament input
   const [errors, setErrors] = useState({
     race: "Race is required",
     height: "Min height and max height are required",
@@ -24,6 +23,7 @@ const CreateDog = () => {
   });
 
   const [temperament, setTemperament] = useState("");
+  const [isSubmited, setIsSubmited] = useState(false);
   const dispatch = useDispatch();
   const temperaments = useSelector((state) => state.temperaments);
   const dogs = useSelector((state) => state.allDogs);
@@ -139,13 +139,30 @@ const CreateDog = () => {
       maxYears: "",
       temperament: "",
     });
+    setErrors({
+      race: "Race is required",
+      height: "Min height and max height are required",
+      weight: "Min weight and max weight are required",
+      years: "Min years and max years are required",
+    });
     tempText.innerHTML = "";
     setTemperament("");
+    setIsSubmited(true);
+    setTimeout(() => {
+      setIsSubmited(false);
+    }, 2500);
   };
 
   return (
     <div className={s.mainContainer}>
       <h1>Fill the info to create a new dog</h1>
+      {isSubmited && (
+        <div className={s.overlay}>
+          <div className={s.submitNotice}>
+            <p>Dog created succesfully!</p>
+          </div>
+        </div>
+      )}
       <form onSubmit={(e) => handleSubmit(e)} className={s.formContainer}>
         <div className={s.infoInput}>
           <div>
@@ -254,7 +271,7 @@ const CreateDog = () => {
             </select>
           </div>
         </div>
-        <input id="submitBtn" type="submit" value="Create dog" />
+        <input className={s.submitBtn} type="submit" value="Create dog" />
       </form>
       {Object.keys(errors) && (
         <ul className={s.errorsList}>
