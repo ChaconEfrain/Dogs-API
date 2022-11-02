@@ -71,19 +71,25 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case SORT_BY_WEIGHT:
+      // Sorting by max weight
       if (action.payload === "ascending") {
         return {
           ...state,
-          allDogs: [...state.allDogs].sort(
-            (a, b) =>
-              Number(a.weight.slice(0, 2)) - Number(b.weight.slice(0, 2))
+          allDogs: [...state.allDogs].sort((a, b) =>
+            Number(
+              a.weight.split(" ")[a.weight.split(" ").length - 2] -
+                Number(b.weight.split(" ")[b.weight.split(" ").length - 2])
+            )
           ),
         };
       }
       return {
         ...state,
-        allDogs: [...state.allDogs].sort(
-          (a, b) => Number(b.weight.slice(0, 2)) - Number(a.weight.slice(0, 2))
+        allDogs: [...state.allDogs].sort((a, b) =>
+          Number(
+            b.weight.split(" ")[b.weight.split(" ").length - 2] -
+              Number(a.weight.split(" ")[a.weight.split(" ").length - 2])
+          )
         ),
       };
 

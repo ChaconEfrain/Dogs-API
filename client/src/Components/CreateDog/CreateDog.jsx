@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getTemperaments, createDog } from "../../redux/action-creators";
+import {
+  getTemperaments,
+  createDog,
+  resetArrays,
+  getAllDogs,
+} from "../../redux/action-creators";
 import s from "./CreateDog.module.css";
 
 const CreateDog = () => {
@@ -128,7 +133,6 @@ const CreateDog = () => {
     const tempText = document.getElementById("tempText");
     const tempTextArray = tempText.innerHTML.split(", ");
     const lastTemp = tempTextArray[tempTextArray.length - 1];
-    console.log(input);
     createDog({ ...input, temperament: `${temperament}, ${lastTemp}` });
     setInput({
       race: "",
@@ -152,6 +156,7 @@ const CreateDog = () => {
     setTimeout(() => {
       setIsSubmited(false);
     }, 2500);
+    dispatch(getAllDogs());
   };
 
   return (

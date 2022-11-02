@@ -13,15 +13,28 @@ module.exports = {
   async getDogsFromAPI() {
     if (!dogsFromAPI.length) {
       const dogs = await axios.get(URL);
-      dogsFromAPI = dogs.data.map((dog) => ({
-        id: dog.id,
-        image: dog.image.url,
-        name: dog.name,
-        temperament: dog.temperament || "N/A",
-        weight: `${dog.weight.metric} Kg`,
-        height: `${dog.height.metric} cm`,
-        life_span: dog.life_span,
-      }));
+      dogsFromAPI = dogs.data.map((dog) => {
+        const weightImperialToMetric = Math.floor(
+          Number(
+            dog.weight.imperial.split(" ")[
+              dog.weight.imperial.split(" ").length - 1
+            ]
+          ) * 0.453
+        );
+        return {
+          id: dog.id,
+          image: dog.image.url,
+          name: dog.name,
+          temperament: dog.temperament || "N/A",
+          weight: `${
+            dog.weight.metric !== "NaN"
+              ? dog.weight.metric
+              : weightImperialToMetric
+          } Kg`,
+          height: `${dog.height.metric} cm`,
+          life_span: dog.life_span,
+        };
+      });
     }
     return dogsFromAPI;
   },
@@ -115,13 +128,14 @@ module.exports = {
     return newDog;
   },
 
-  async deleteFromDb(id) {
-    const dogToDelete = await Dog.findOne({
-      where: {
-        id,
-      },
-    });
-    await dogToDelete.destroy();
-    return dogToDelete;
-  },
+  // async deleteFromDb(id) {
+  //   const dogToDelete = await Dog.findOne({
+  //     where: {
+  //       id,
+  //     },
+  //   });
+  //   await dogToDelete.destroy();
+
+  //   return dogToDelete;
+  // },
 };
