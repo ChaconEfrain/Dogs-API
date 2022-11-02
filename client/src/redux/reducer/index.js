@@ -9,6 +9,7 @@ import {
   SORT_BY_WEIGHT,
   SORT_ALPHABETICALLY,
   RESET_ARRAYS,
+  DELETE_FROM_DB,
 } from "../actions";
 
 const initialState = {
@@ -109,6 +110,14 @@ const rootReducer = (state = initialState, action) => {
         dogsFromDb: [],
         filteredDogs: [],
         dogsSearched: [],
+      };
+
+    case DELETE_FROM_DB:
+      return {
+        ...state,
+        dogsFromDb: [...state.dogsFromDb].filter(
+          (dog) => dog.id !== action.payload.id
+        ),
       };
 
     default:

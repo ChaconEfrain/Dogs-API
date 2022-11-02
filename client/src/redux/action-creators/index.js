@@ -9,6 +9,7 @@ import {
   SORT_BY_WEIGHT,
   SORT_ALPHABETICALLY,
   RESET_ARRAYS,
+  DELETE_FROM_DB,
 } from "../actions";
 
 export const getAllDogs = () => {
@@ -85,7 +86,6 @@ export const sortAlphabetically = (order) => {
 };
 
 export const createDog = (data) => {
-  console.log("data", data);
   const options = {
     method: "POST",
     headers: {
@@ -97,4 +97,23 @@ export const createDog = (data) => {
     .then((res) => res.json())
     .then((response) => console.log(response))
     .catch((err) => console.error(err));
+};
+
+export const deleteFromDb = (data) => {
+  const options = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
+  fetch(`http://localhost:3001/dogs`, options)
+    .then((res) => res.json())
+    .then((response) => console.log(response))
+    .catch((err) => console.error(err));
+
+  return {
+    type: DELETE_FROM_DB,
+    payload: data,
+  };
 };

@@ -51,4 +51,13 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/", async (req, res) => {
+  try {
+    const { id } = req.body;
+    return res.json(Model.deleteFromDb(id));
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 module.exports = router;

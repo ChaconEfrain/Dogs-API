@@ -51,3 +51,18 @@
 .card:hover span {
   opacity: 0;
 }
+
+.deleteBtn {
+  cursor: pointer;
+  position: absolute;
+  right: -15px;
+  background-color: transparent;
+  border: none;
+  color: red;
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+.card:hover .deleteBtn {
+  opacity: 1;
+}

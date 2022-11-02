@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { getTemperaments, createDog } from "../../redux/action-creators";
 import s from "./CreateDog.module.css";
 
@@ -155,6 +156,9 @@ const CreateDog = () => {
 
   return (
     <div className={s.mainContainer}>
+      <NavLink className={s.link} to="/home">
+        <button className={s.homeBtn}>Home</button>
+      </NavLink>
       <h1>Fill the info to create a new dog</h1>
       {isSubmited && (
         <div className={s.overlay}>
@@ -166,9 +170,10 @@ const CreateDog = () => {
       <form onSubmit={(e) => handleSubmit(e)} className={s.formContainer}>
         <div className={s.infoInput}>
           <div>
-            <label htmlFor="">Race</label>
+            <label htmlFor="raceInput">Race</label>
           </div>
           <input
+            id="raceInput"
             className={errors.race && s.inputError}
             onChange={(e) => handleInput(e)}
             name="race"
@@ -179,9 +184,10 @@ const CreateDog = () => {
         </div>
         <div className={s.numberInputs}>
           <div className={s.infoInput}>
-            <label htmlFor="">Height</label>
+            <label htmlFor="heightInput">Height</label>
             <div>
               <input
+                id="heightInput"
                 onChange={(e) => handleInput(e)}
                 name="minHeight"
                 className={`${s.numberInput} ${errors.height && s.inputError}`}
@@ -200,9 +206,10 @@ const CreateDog = () => {
             </div>
           </div>
           <div className={s.infoInput}>
-            <label htmlFor="">Weight</label>
+            <label htmlFor="weightInput">Weight</label>
             <div>
               <input
+                id="weightInput"
                 onChange={(e) => handleInput(e)}
                 name="minWeight"
                 className={`${s.numberInput} ${errors.weight && s.inputError}`}
@@ -221,9 +228,10 @@ const CreateDog = () => {
             </div>
           </div>
           <div className={s.infoInput}>
-            <label htmlFor="">Life span</label>
+            <label htmlFor="yearsInput">Life span</label>
             <div>
               <input
+                id="yearsInput"
                 onChange={(e) => handleInput(e)}
                 name="minYears"
                 className={`${s.numberInput} ${errors.years && s.inputError}`}
@@ -254,7 +262,9 @@ const CreateDog = () => {
           </div>
           <div className={s.tempDiv}>
             <div className={s.tempContainer}>
-              <span id="tempText">{temperament}</span>
+              <span id="tempText" className={s.selectedTemps}>
+                {temperament}
+              </span>
             </div>
             <select
               onChange={displayTemperaments}
@@ -273,6 +283,7 @@ const CreateDog = () => {
         </div>
         <input className={s.submitBtn} type="submit" value="Create dog" />
       </form>
+
       {Object.keys(errors) && (
         <ul className={s.errorsList}>
           {Object.keys(errors).map((error) => (
