@@ -9,7 +9,6 @@ import {
   SORT_BY_WEIGHT,
   SORT_ALPHABETICALLY,
   RESET_ARRAYS,
-  DELETE_FROM_DB,
 } from "../actions";
 
 const initialState = {
@@ -71,7 +70,7 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case SORT_BY_WEIGHT:
-      // Sorting by max weight
+      // Sorting by max weight in ascending order
       if (action.payload === "ascending") {
         return {
           ...state,
@@ -83,6 +82,7 @@ const rootReducer = (state = initialState, action) => {
           ),
         };
       }
+      // Sorting by max weight in descending order
       return {
         ...state,
         allDogs: [...state.allDogs].sort((a, b) =>
@@ -116,14 +116,6 @@ const rootReducer = (state = initialState, action) => {
         dogsFromDb: [],
         filteredDogs: [],
         dogsSearched: [],
-      };
-
-    case DELETE_FROM_DB:
-      return {
-        ...state,
-        dogsFromDb: [...state.dogsFromDb].filter(
-          (dog) => dog.id !== action.payload.id
-        ),
       };
 
     default:

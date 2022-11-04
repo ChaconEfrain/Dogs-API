@@ -1,7 +1,7 @@
 import { Route, Switch } from "react-router-dom";
-import Home from "./Components/Home/Home";
 import Landing from "./Components/Landing/Landing";
 import Header from "./Components/Header/Header";
+import Home from "./Components/Home/Home";
 import Details from "./Components/Details/Details";
 import CreateDog from "./Components/CreateDog/CreateDog";
 import "./App.css";

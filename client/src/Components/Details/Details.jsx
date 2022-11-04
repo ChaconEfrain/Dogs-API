@@ -2,7 +2,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import { getAllDogs, getDogDetails } from "../../redux/action-creators";
+import Model from ".";
 import genericDog from "../../images/generic-dog.jpg";
+import loadingImg from "../../images/loading.gif";
 import s from "./Details.module.css";
 import { useState } from "react";
 
@@ -11,7 +13,6 @@ const Details = () => {
   const dog = useSelector((state) => state.dogDetails);
   const dogs = useSelector((state) => state.allDogs);
   const { id } = useParams();
-  // const [currentDog, setCurrentDog] = useState(dog);
   const [currentId, setCurrentId] = useState(id);
 
   if (!dogs.length) dispatch(getAllDogs());
@@ -25,36 +26,28 @@ const Details = () => {
     stringTemp = dog.temperament.map((temp) => temp.name).join(", ");
   }
 
-  //TODO: Add next and previous functionality
-  const handleDogChanging = (e) => {
-    const currentIndex = Number(currentId)
-      ? dogs.findIndex((dogEl) => dogEl.id === Number(currentId))
-      : dogs.findIndex((dogEl) => dogEl.id === currentId);
-    let currentDog;
-    if (e.target.innerHTML === "Next" && currentIndex === dogs.length - 1) {
-      currentDog = dogs[0];
-      setCurrentId(currentDog.id);
-      console.log(currentDog);
-      dispatch(getDogDetails(currentId));
-    } else if (e.target.innerHTML === "Next") {
-      currentDog = dogs[currentIndex + 1];
-      setCurrentId(currentDog.id);
-      dispatch(getDogDetails(currentId));
-    } else if (e.target.innerHTML === "Previous" && currentIndex === 0) {
-      currentDog = dogs[dogs.length - 1];
-      setCurrentId(currentDog.id);
-      console.log(currentDog);
-      dispatch(getDogDetails(currentId));
-    } else if (e.target.innerHTML === "Previous") {
-      currentDog = dogs[currentIndex - 1];
-      setCurrentId(currentDog.id);
-      dispatch(getDogDetails(currentId));
-    }
-  };
+  if (
+    !Object.keys(dog).length ||
+    (Number(currentId) && dog.id !== Number(currentId)) ||
+    (!Number(currentId) && dog.id !== currentId)
+  )
+    return <img className={s.loading} src={loadingImg} alt="Loading" />;
 
   return (
     <div className={s.mainContainer}>
-      <span className={s.changeDogBtn} onClick={(e) => handleDogChanging(e)}>
+      <span
+        className={s.changeDogBtn}
+        onClick={(e) =>
+          Model.handleDogChanging(
+            e,
+            currentId,
+            dogs,
+            setCurrentId,
+            dispatch,
+            getDogDetails
+          )
+        }
+      >
         Previous
       </span>
       <div className={s.detailsDiv}>
@@ -78,8 +71,7 @@ const Details = () => {
               <em>- Life span:</em> {dog.life_span}
             </span>
             <p>
-              <em>- Temperament:</em>{" "}
-              {stringTemp ? stringTemp : dog.temperament}
+              <em>- Temperament:</em> {stringTemp || dog.temperament}
             </p>
           </div>
         </article>
@@ -87,7 +79,19 @@ const Details = () => {
           <button className={s.homeBtn}>Home</button>
         </NavLink>
       </div>
-      <span className={s.changeDogBtn} onClick={(e) => handleDogChanging(e)}>
+      <span
+        className={s.changeDogBtn}
+        onClick={(e) =>
+          Model.handleDogChanging(
+            e,
+            currentId,
+            dogs,
+            setCurrentId,
+            dispatch,
+            getDogDetails
+          )
+        }
+      >
         Next
       </span>
     </div>

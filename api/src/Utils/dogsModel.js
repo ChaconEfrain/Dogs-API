@@ -127,15 +127,4 @@ module.exports = {
     });
     return newDog;
   },
-
-  // async deleteFromDb(id) {
-  //   const dogToDelete = await Dog.findOne({
-  //     where: {
-  //       id,
-  //     },
-  //   });
-  //   await dogToDelete.destroy();
-
-  //   return dogToDelete;
-  // },
 };

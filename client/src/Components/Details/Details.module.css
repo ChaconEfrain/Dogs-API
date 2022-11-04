@@ -50,6 +50,7 @@
 }
 
 .homeBtn {
+  cursor: pointer;
   width: 100%;
   background-color: rgb(109, 109, 109);
   color: rgb(255, 255, 255);
@@ -60,5 +61,13 @@
 
 .homeBtn:hover {
   background-color: rgb(0, 160, 160);
-  cursor: pointer;
+}
+
+/* Loading */
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
 }

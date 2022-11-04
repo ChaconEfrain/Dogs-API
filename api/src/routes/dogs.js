@@ -47,17 +47,8 @@ router.post("/", async (req, res) => {
     await Model.associateTemperaments(dog, temperament);
     return res.json(await Model.joinDogAndTemperament(race));
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send(error.message);
   }
 });
-
-// router.delete("/", async (req, res) => {
-//   try {
-//     const { id } = req.body;
-//     return res.json(await Model.deleteFromDb(id));
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
 
 module.exports = router;
