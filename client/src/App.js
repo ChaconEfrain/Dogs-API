@@ -4,6 +4,7 @@ import Header from "./Components/Header/Header";
 import Home from "./Components/Home/Home";
 import Details from "./Components/Details/Details";
 import CreateDog from "./Components/CreateDog/CreateDog";
+import Footer from "./Components/Footer/Footer";
 import "./App.css";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route exact path="/home">
           <Header />
           <Home />
+          <Footer />
         </Route>
         <Route exact path="/dog/:id">
           <Details />

@@ -4,6 +4,7 @@
   justify-items: center;
   gap: 15px;
   margin: 50px 250px;
+  min-height: 400px;
 }
 
 /* Loading */

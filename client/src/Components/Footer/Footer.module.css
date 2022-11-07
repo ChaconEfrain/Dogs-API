@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(109, 109, 109);
+  color: rgb(255, 255, 255);
+}
+
+.socialContainer {
+  display: flex;
+}
+
+.container a img {
+  width: 80px;
+}
