@@ -1,7 +1,8 @@
 .container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 50px;
   background-color: rgb(109, 109, 109);
   color: rgb(255, 255, 255);
 }
