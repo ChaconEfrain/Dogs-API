@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "![HenryLogo](https://d31uz8lwfmyn8g.cloudfront.net/Assets/logo-henry-white-lg.png)",
   "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node api/src/index.js"
