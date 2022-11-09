@@ -110,7 +110,9 @@ const Model = {
     setInput,
     setErrors,
     setTemperament,
-    setIsSubmited
+    setIsSubmited,
+    dispatch,
+    getAllDogs
   ) {
     e.preventDefault();
     if (Object.keys(errors).length) return;
@@ -139,6 +141,7 @@ const Model = {
     setTimeout(() => {
       setIsSubmited(false);
     }, 2500);
+    dispatch(getAllDogs());
   },
 };
 

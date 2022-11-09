@@ -2,16 +2,21 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   justify-items: center;
+  align-content: start;
   gap: 15px;
   margin: 50px 250px;
   min-height: 400px;
 }
 
 /* Loading */
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  min-height: 510px;
+  width: 100px;
+}
+
 .loading {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 100px;
 }

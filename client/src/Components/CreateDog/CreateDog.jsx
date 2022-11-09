@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getTemperaments, createDog } from "../../redux/action-creators";
+import {
+  getTemperaments,
+  createDog,
+  getAllDogs,
+} from "../../redux/action-creators";
 import Model from ".";
 import s from "./CreateDog.module.css";
 
@@ -57,7 +61,9 @@ const CreateDog = () => {
             setInput,
             setErrors,
             setTemperament,
-            setIsSubmited
+            setIsSubmited,
+            dispatch,
+            getAllDogs
           )
         }
         className={s.formContainer}

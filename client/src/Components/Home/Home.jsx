@@ -9,11 +9,6 @@ import loadingImg from "../../images/loading.gif";
 import s from "./Home.module.css";
 
 const Home = () => {
-  //Bring all the dogs
-  useEffect(() => {
-    dispatch(getAllDogs());
-  }, []);
-
   const dispatch = useDispatch();
   const dogs = useSelector((state) => state.allDogs);
   const dogsSearched = useSelector((state) => state.dogsSearched);
@@ -25,7 +20,7 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const dogsPerPage = 8;
 
-  const filter = Model.handleFilter(
+  const { currentDogs, currentLength } = Model.handleFilter(
     currentPage,
     dogsPerPage,
     filteredDogs,
@@ -35,18 +30,30 @@ const Home = () => {
     dogs
   );
 
-  if (!filter.currentLength)
-    return <img className={s.loading} src={loadingImg} alt="Loading" />;
+  useEffect(() => {
+    dispatch(getAllDogs());
+  }, []);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredDogs]);
+
+  if (!currentLength)
+    return (
+      <div className={s.loadingContainer}>
+        <img className={s.loading} src={loadingImg} alt="Loading" />
+      </div>
+    );
 
   return (
     <div className={s.mainContainer}>
       <Pagination
         dogsPerPage={dogsPerPage}
-        totalDogs={filter.currentLength}
+        totalDogs={currentLength}
         handlePageChanging={(e) =>
           Model.handlePageChanging(
             e,
-            filter.currentLength,
+            currentLength,
             dogsPerPage,
             setCurrentPage,
             currentPage
@@ -54,8 +61,8 @@ const Home = () => {
         }
       />
       <div className={s.dogsContainer}>
-        {filter.currentDogs &&
-          filter.currentDogs.map((dog) => (
+        {currentDogs &&
+          currentDogs.map((dog) => (
             <Dog
               key={dog.id}
               id={dog.id}
