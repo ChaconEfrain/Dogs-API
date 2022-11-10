@@ -140,7 +140,7 @@ const Model = {
     setIsSubmited(true);
     setTimeout(() => {
       setIsSubmited(false);
-    }, 2500);
+    }, 1500);
     dispatch(getAllDogs());
   },
 };

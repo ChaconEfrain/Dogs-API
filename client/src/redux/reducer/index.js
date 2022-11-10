@@ -62,34 +62,42 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_TEMPERAMENTS:
+      const dogsFromApiFiltered = [...state.allDogs].filter((dog) =>
+        dog.temperament.includes(action.payload)
+      );
+      const dogsFromDbFiltered = [...state.allDogs].filter((dog) =>
+        Array.isArray(dog.temperament)
+      );
+      let dogsFromDbFilteredByTemp = [];
+      for (const dog of dogsFromDbFiltered) {
+        for (const temp of dog.temperament) {
+          if (temp.name === action.payload) dogsFromDbFilteredByTemp.push(dog);
+        }
+      }
       return {
         ...state,
-        filteredDogs: [...state.allDogs].filter((dog) =>
-          dog.temperament.includes(action.payload)
-        ),
+        filteredDogs: [...dogsFromApiFiltered, ...dogsFromDbFilteredByTemp],
       };
 
     case SORT_BY_WEIGHT:
+      //Selecting max weight
+      const selectWeight = (dog) =>
+        Number(dog.weight.split(" ")[dog.weight.split(" ").length - 2]);
+
       // Sorting by max weight in ascending order
       if (action.payload === "ascending") {
         return {
           ...state,
-          allDogs: [...state.allDogs].sort((a, b) =>
-            Number(
-              a.weight.split(" ")[a.weight.split(" ").length - 2] -
-                Number(b.weight.split(" ")[b.weight.split(" ").length - 2])
-            )
+          allDogs: [...state.allDogs].sort(
+            (a, b) => selectWeight(a) - selectWeight(b)
           ),
         };
       }
       // Sorting by max weight in descending order
       return {
         ...state,
-        allDogs: [...state.allDogs].sort((a, b) =>
-          Number(
-            b.weight.split(" ")[b.weight.split(" ").length - 2] -
-              Number(a.weight.split(" ")[a.weight.split(" ").length - 2])
-          )
+        allDogs: [...state.allDogs].sort(
+          (a, b) => selectWeight(b) - selectWeight(a)
         ),
       };
 

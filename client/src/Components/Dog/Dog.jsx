@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import s from "./Dog.module.css";
 
-const Dog = ({ id, image, name, temperament, weight }) => {
+const Dog = ({ id, image, name, temperament, weight, life_span }) => {
   let stringTemperaments = "";
 
   if (Array.isArray(temperament)) {
@@ -9,21 +9,24 @@ const Dog = ({ id, image, name, temperament, weight }) => {
   }
 
   return (
-    <figure className={s.card}>
-      <NavLink className={s.link} to={`/dog/${id}`}>
+    <NavLink className={s.link} to={`/dog/${id}`}>
+      <figure className={s.card}>
         <img className={s.dogImage} src={image} alt={name} />
-      </NavLink>
-      <span>{name}</span>
-      <div className={s.dogInfo}>
-        <p>
-          <em>- Temperament:</em>{" "}
-          {stringTemperaments ? stringTemperaments : temperament}
-        </p>
-        <p>
-          <em>- Weight:</em> {weight}
-        </p>
-      </div>
-    </figure>
+        <span>{name}</span>
+        <div className={s.dogInfo}>
+          <p>
+            <em>- Temperament:</em>{" "}
+            {stringTemperaments ? stringTemperaments : temperament}
+          </p>
+          <p>
+            <em>- Life span:</em> {life_span}
+          </p>
+          <p>
+            <em>- Weight:</em> {weight}
+          </p>
+        </div>
+      </figure>
+    </NavLink>
   );
 };
 

@@ -4,15 +4,15 @@ const Model = {
   },
 
   handleSubmit(e, dispatch, resetArrays, getDogsByQuery, setInput, input) {
-    dispatch(resetArrays());
     e.preventDefault();
+    dispatch(resetArrays());
     dispatch(getDogsByQuery(input));
     setInput("");
     document.querySelector("input").blur();
   },
 
-  filterByTemperament(dispatch, resetArrays, filterByTemperaments) {
-    dispatch(resetArrays());
+  filterByTemperament(dispatch, getAllDogs, filterByTemperaments) {
+    dispatch(getAllDogs());
     const optionsTemp = document.getElementById("filter-temp").value;
     dispatch(filterByTemperaments(optionsTemp));
   },
@@ -28,7 +28,7 @@ const Model = {
   handleSorting(dispatch, resetArrays, sortByWeight, sortAlphabetically) {
     dispatch(resetArrays());
     const optionsSort = document.getElementById("sort").value;
-    const order = optionsSort.split(" ")[1];
+    const order = optionsSort.split(" ")[1]; //order = ascending or descending
     if (optionsSort.includes("Weight")) dispatch(sortByWeight(order));
     else dispatch(sortAlphabetically(order));
   },

@@ -36,7 +36,7 @@ const Home = () => {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [filteredDogs]);
+  }, [dogsSearched, filteredDogs, dogsFromApi, dogsFromDb]);
 
   if (!currentLength)
     return (

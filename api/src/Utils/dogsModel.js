@@ -61,14 +61,13 @@ module.exports = {
       if (dog.temperament) return dog.temperament.split(", ");
     });
     let temperaments = allTemperaments.flat().sort();
-    let uniqueTemperaments = new Set(temperaments);
-    let uniqueTemperamentsArray = [...uniqueTemperaments];
-    const tempsToCreate = uniqueTemperamentsArray.map((temp) => ({
+    let uniqueTemperaments = [...new Set(temperaments)];
+    const tempsToCreate = uniqueTemperaments.map((temp) => ({
       name: temp,
     }));
     await Temperament.bulkCreate(tempsToCreate);
-    uniqueTemperamentsArray.pop();
-    return uniqueTemperamentsArray;
+    uniqueTemperaments.pop();
+    return uniqueTemperaments;
   },
 
   getDogsByQuery(name) {
